@@ -1,4 +1,4 @@
-package com.fakeStoreProductService.config;
+package com.fakeStoreProductService.configuration;
 
 
 import org.springframework.context.annotation.Bean;
