@@ -20,4 +20,6 @@ public interface ProductService {
     public Product updateProduct(int id, ProductRequestDto productRequestDto);
 
     public Product deleteProduct(int id, ProductRequestDto productRequestDto);
+
+    public void redisCheck();
 }
