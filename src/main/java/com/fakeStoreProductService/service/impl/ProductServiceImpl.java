@@ -94,12 +94,23 @@ public class ProductServiceImpl implements ProductService {
         return products;
     }
 
+
+
     @Override
     public Product getAllProductsbyId(int id) {
 
+        Product product=(Product) redisTemplate.opsForValue().get("product"+id);
+        if(product!=null){
+            return product;
+        }else{
+            productResponseDto = restTemplate.getForObject("https://fakestoreapi.com/products/{id}", ProductResponseDto.class, id);
+            Product product1=getProductfromDto(productResponseDto);
+            redisTemplate.opsForValue().set("product"+id,product1,10,TimeUnit.SECONDS);
+            return product1;
+        }
+
         //  productResponseDto=restTemplate.getForObject("https://fakestoreapi.com/products/"+id , ProductResponseDto.class, id);
-        productResponseDto = restTemplate.getForObject("https://fakestoreapi.com/products/{id}", ProductResponseDto.class, id);
-        return getProductfromDto(productResponseDto);
+
     }
 
     @Override
@@ -170,14 +181,7 @@ public class ProductServiceImpl implements ProductService {
 
     }
 
-    public void redisCheck() {
 
-        if (redisTemplate.opsForHash().hasKey("From intellij", "Hi")) {
-            System.out.println(redisTemplate.opsForHash().get("From intellij", "Hi").toString());
-        } else {
-            redisTemplate.opsForHash().put("From intellij", "Hi", "working");
-        }
-    }
 
 
 }

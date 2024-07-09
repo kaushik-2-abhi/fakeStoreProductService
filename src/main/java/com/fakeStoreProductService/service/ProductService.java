@@ -21,5 +21,5 @@ public interface ProductService {
 
     public Product deleteProduct(int id, ProductRequestDto productRequestDto);
 
-    public void redisCheck();
+
 }

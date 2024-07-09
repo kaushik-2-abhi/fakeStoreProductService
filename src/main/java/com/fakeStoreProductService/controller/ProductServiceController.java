@@ -61,12 +61,7 @@ public class ProductServiceController {
         return new ResponseEntity<>(productService.deleteProduct(id,productRequestDto), HttpStatus.OK) ;
    }
 
-   @GetMapping("/redis")
-    public void checkRedis(){
 
-        productService.redisCheck();
-
-   }
 
 
 }
